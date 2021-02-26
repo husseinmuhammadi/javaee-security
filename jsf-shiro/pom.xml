@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.javastudio.security</groupId>
+        <artifactId>javaee-security-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>jsf-shiro</artifactId>
+    <packaging>war</packaging>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>wildfly-deploy</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.wildfly.plugins</groupId>
+                        <artifactId>wildfly-maven-plugin</artifactId>
+                        <version>2.0.2.Final</version>
+
+                        <configuration>
+                            <hostname>localhost</hostname>
+                            <port>9990</port>
+                            <username>admin</username>
+                            <password>123456</password>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>undeploy</id>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>undeploy</goal>
+                                </goals>
+                                <configuration>
+                                    <ignoreMissingDeployment>true</ignoreMissingDeployment>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>deploy</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
