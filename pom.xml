@@ -18,6 +18,9 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <slf4j-api.version>1.7.25</slf4j-api.version>
+        <logback-classic.version>1.2.3</logback-classic.version>
     </properties>
 
     <build>
@@ -67,12 +70,32 @@
         </pluginManagement>
     </build>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-classic.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>8.0</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
 
         <dependency>
