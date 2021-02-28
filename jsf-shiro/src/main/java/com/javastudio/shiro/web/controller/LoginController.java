@@ -4,18 +4,22 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
 @Named
 @ViewScoped
 public class LoginController implements Serializable {
-
     private static final long serialVersionUID = 1982587028476138981L;
+
+    @Inject
+    private Logger logger;
 
     private String username;
     private String password;
@@ -28,14 +32,13 @@ public class LoginController implements Serializable {
 
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         token.setRememberMe(rememberMe);
-        currentUser.login(token);
 
         try {
             currentUser.login(token);
             return "/index?faces-redirect=true";
         } catch (AuthenticationException e) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid credential", ""));
         }
         return null;
     }

@@ -3,6 +3,7 @@ package com.javastudio.shiro.security;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.web.env.DefaultWebEnvironment;
 import org.apache.shiro.web.env.EnvironmentLoaderListener;
 import org.apache.shiro.web.env.WebEnvironment;
 import org.slf4j.Logger;
@@ -15,7 +16,7 @@ public class ShiroEnvironmentLoaderListener extends EnvironmentLoaderListener {
     private Logger logger;
 
     @Inject
-    DatabaseRealm realm;
+    PersistenceRealm realm;
 
     @Override
     protected WebEnvironment createEnvironment(ServletContext sc) {
