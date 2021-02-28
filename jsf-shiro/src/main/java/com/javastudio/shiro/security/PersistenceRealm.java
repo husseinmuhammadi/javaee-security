@@ -25,8 +25,8 @@ public class PersistenceRealm extends AuthorizingRealm {
         if (authenticationToken instanceof UsernamePasswordToken) {
             String username = ((UsernamePasswordToken) authenticationToken).getUsername();
 
-            if (username == null) {
-                logger.warn("Username is null.");
+            if (username == null || username.isEmpty() || username.isBlank()) {
+                logger.warn("Username is empty.");
                 return null;
             }
 
@@ -38,7 +38,7 @@ public class PersistenceRealm extends AuthorizingRealm {
 
             // TODO throw ExpiredCredentialsException if password is expired
 
-            Sha256Hash hashPassword = new org.apache.shiro.crypto.hash.Sha256Hash(((UsernamePasswordToken) authenticationToken).getPassword(), ((UsernamePasswordToken) authenticationToken).getUsername().toLowerCase());
+            Sha256Hash hashPassword = new Sha256Hash(((UsernamePasswordToken) authenticationToken).getPassword(), ((UsernamePasswordToken) authenticationToken).getUsername().toLowerCase());
             logger.info("username: {}, password: {}", username, hashPassword);
 
             return new SimpleAuthenticationInfo(username, hashPassword.toHex(), new SimpleByteSource(/*user.getSalt()*/username), getName());
