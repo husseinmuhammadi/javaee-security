@@ -10,7 +10,12 @@
 
     </h:head>
     <h:body>
-
+        <h:messages/>
+        <h:form>
+            Username <h:inputText value="#{loginController.username}"/>
+            Password <h:inputText value="#{loginController.password}"/>
+            <h:commandButton value="login" action="#{loginController.login}"/>
+        </h:form>
     </h:body>
 </f:view>
 </html>
