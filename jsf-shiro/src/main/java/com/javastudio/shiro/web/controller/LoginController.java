@@ -1,4 +1,4 @@
-package com.javastudio.shiro.controller;
+package com.javastudio.shiro.web.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
