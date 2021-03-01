@@ -1,6 +1,9 @@
 package com.javastudio.shiro.security;
 
+import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.credential.PasswordMatcher;
+import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.web.env.DefaultWebEnvironment;
@@ -25,6 +28,10 @@ public class ShiroEnvironmentLoaderListener extends EnvironmentLoaderListener {
 
         if (securityManager instanceof RealmSecurityManager) {
             logger.info("Setting realm with hash algorithm SHA-256");
+
+            CredentialsMatcher credentialsMatcher = new PasswordMatcher();
+            // ((PasswordMatcher)credentialsMatcher).setPasswordService();
+
             realm.setCredentialsMatcher(new HashedCredentialsMatcher("SHA-256"));
             ((RealmSecurityManager) securityManager).setRealm(realm);
         }

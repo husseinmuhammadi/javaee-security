@@ -16,6 +16,7 @@ public class LogoutController {
     private Logger logger;
 
     public String logout() {
+        logger.info("logout");
         Subject currentUser = SecurityUtils.getSubject();
         if (currentUser.isAuthenticated()) {
             currentUser.logout();
