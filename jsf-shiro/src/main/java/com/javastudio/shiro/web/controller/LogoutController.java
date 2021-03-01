@@ -16,13 +16,14 @@ public class LogoutController {
     private Logger logger;
 
     public String logout() {
-        logger.info("logout");
         Subject currentUser = SecurityUtils.getSubject();
-        if (currentUser.isAuthenticated()) {
-            currentUser.logout();
-            return "login";
+        if (!currentUser.isAuthenticated()) {
+            logger.info("user already logged out!");
+            return "index";
         }
 
-        return null;
+        logger.info("try to logout user");
+        currentUser.logout();
+        return "login";
     }
 }

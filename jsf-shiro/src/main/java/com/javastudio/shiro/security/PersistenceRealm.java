@@ -11,6 +11,7 @@ import org.apache.shiro.util.SimpleByteSource;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
+import java.util.Locale;
 
 public class PersistenceRealm extends AuthorizingRealm {
 
@@ -39,9 +40,9 @@ public class PersistenceRealm extends AuthorizingRealm {
             // TODO throw ExpiredCredentialsException if password is expired
 
             Sha256Hash hashPassword = new Sha256Hash(((UsernamePasswordToken) authenticationToken).getPassword(), ((UsernamePasswordToken) authenticationToken).getUsername().toLowerCase());
-            logger.info("username: {}, password: {}", username, hashPassword);
+            logger.info("hash of entered password: {}", hashPassword.toHex());
 
-            return new SimpleAuthenticationInfo(username, hashPassword.toHex(), new SimpleByteSource(/*user.getSalt()*/username), getName());
+            return new SimpleAuthenticationInfo(username, user.getPassword(), new SimpleByteSource(/*user.getSalt()*/username.toLowerCase()), getName());
         }
 
         throw new AuthenticationException("Invalid credential");
