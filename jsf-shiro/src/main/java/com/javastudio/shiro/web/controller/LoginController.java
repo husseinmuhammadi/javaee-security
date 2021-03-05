@@ -40,12 +40,13 @@ public class LoginController implements Serializable {
         } catch (AuthenticationException e) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid credential", ""));
+            return null;
         }
 
-        SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(null);
-        logger.info("redirecting to " + savedRequest.getRequestURI() + "?faces-redirect=true");
+//        SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(null);
+//        logger.info("redirecting to " + savedRequest.getRequestURI() + "?faces-redirect=true");
 
-        return savedRequest.getRequestURI() + "?faces-redirect=true";
+        return "index?faces-redirect=true";
     }
 
     public String getUsername() {
